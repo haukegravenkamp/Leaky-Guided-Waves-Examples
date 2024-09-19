@@ -47,7 +47,7 @@ ran = rank(Delta0)
 eigenvalues = [lambda mu]
 
 % check that eigenvalues and eigenvectors are correct
-for k = 1:length(eigenvalues)
+for k = 1:size(eigenvalues,1)
     minsing1 = min(svd((A1-lambda(k)*B1-mu(k)*C1)));
     minsing2 = min(svd((A2-lambda(k)*B2-mu(k)*C2)));
     normres1 = norm((A1-lambda(k)*B1-mu(k)*C1)*Xr(:,k));

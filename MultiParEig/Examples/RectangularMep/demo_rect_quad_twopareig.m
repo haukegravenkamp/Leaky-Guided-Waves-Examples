@@ -32,10 +32,9 @@ F = randn(n+1,n);
 opts = [];
 opts.method = 'mep';
 opts.showrank  = 1;
-opts.use_qz = 0;
 tic; [lambda1,mu1,X1] = rect_quad_twopareig(A,B,C,D,E,F,opts); t1 = toc;
 
-n1 = length(lambda1);
+n1 = size(lambda1,1);
 err1 = [];
 for j = 1:n1
     M = A + lambda1(j)*B +mu1(j)*C + lambda1(j)^2*D + lambda1(j)*mu1(j)*E + mu1(j)^2*F;
@@ -48,10 +47,9 @@ fprintf('First approach, found %d eigenvalues, time: %7.1e, max residual: %7.1e\
 opts = [];
 opts.method = 'linearize';
 opts.showrank  = 1;
-opts.use_qz = 0;
 tic; [lambda2,mu2,X2] = rect_quad_twopareig(A,B,C,D,E,F,opts); t2 = toc;
 
-n2 = length(lambda2);
+n2 = size(lambda2,1);
 err2 = [];
 for j = 1:n2
     M = A + lambda2(j)*B +mu2(j)*C + lambda2(j)^2*D + lambda2(j)*mu2(j)*E + mu2(j)^2*F;
@@ -64,10 +62,9 @@ fprintf('Second approach, found %d eigenvalues, time: %7.1e, max residual: %7.1e
 opts = [];
 opts.method = 'compress';
 opts.showrank  = 1;
-opts.use_qz = 0;
 tic; [lambda3,mu3,X3] = rect_quad_twopareig(A,B,C,D,E,F,opts); t3 = toc;
 
-n3 = length(lambda3);
+n3 = size(lambda3,1);
 err3 = [];
 for j = 1:n3
     M = A + lambda3(j)*B +mu3(j)*C + lambda3(j)^2*D + lambda3(j)*mu3(j)*E + mu3(j)^2*F;

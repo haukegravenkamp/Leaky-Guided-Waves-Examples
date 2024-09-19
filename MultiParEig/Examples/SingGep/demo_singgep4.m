@@ -42,6 +42,7 @@ opts.singular = 1;
 
 % staircase method fails to extract eigenvalues
 lambda1 = twopareig(A,-B,-I,P,-Q,-R,opts)
+found1 = size(lambda1,1)
 
 % singgep finds all 90 finite eigenvalues
 
@@ -49,6 +50,6 @@ opts = [];
 opts.show = 1;
 opts.method = 'rank-complete';
 
-[lambda,nrank,Z,d,X,Y,U,V,DA,DB] = singgep(Delta1,Delta0,opts);
-length(lambda)
+[lambda2,nrank,Z,d,X,Y,U,V,DA,DB] = singgep(Delta1,Delta0,opts);
+found2 = size(lambda2,1)
 

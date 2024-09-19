@@ -26,8 +26,8 @@ n = 4;
 class_t = 'mp'; 
 
 A = cell(n,n+1);
-for i=1:n
-    for j=1:n+1
+for i = 1:n
+    for j = 1:n+1
         A{i,j} = rand(4,class_t);
     end
 end
@@ -36,14 +36,14 @@ end
 [lambda,X,Y] = multipareig(A);
 
 % number of eigenvalues
-neig = length(lambda)
+neig = size(lambda,1)
 
 % test if we really have eigenvalues (just the first eigenvalue)
 disp('Minimal singular values of equations for the first eigenvalue (should be zero):')
-for i=1:n
+for i = 1:n
      r = A{i,1};
-     for k=2:n+1
-       r = r - lambda(i,k-1)*A{i,k};
-     end;
+     for k = 2:n+1
+       r = r - lambda(1,k-1)*A{i,k};
+     end
      fprintf('%.7e\n',min(svd(r)));    
-end;
+end

@@ -99,8 +99,8 @@ if strcmp(method,'compress')
 
     lambda = joint_delta_eig(DW,opts);
     if nargout>1
-        X = zeros(n,length(lambda),class_t);
-        for i = 1:length(lambda)
+        X = zeros(n,size(lambda,1),class_t);
+        for i = 1:size(lambda,1)
             TMP = A{1};
             for j = 1:k
                 TMP = TMP + lambda(i,j)*A{j+1};

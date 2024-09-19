@@ -33,8 +33,8 @@ function [lambda,report] = joint_delta_eig(Delta,opts)
 %       - 'genschur': compute generalized Schur form of (DeltaH,Delta{1}) 
 %          with optional clustering and reordering and use it to (block) 
 %          triangularize (Delta{j},Delta{1}) for j=2:k+1
-%   - twosidedRQ (0): set to 1 to use two-sided Rayleigh quotients instead
-%     of one-sided (only for solvers 'eig' and 'geneig') 
+%   - twosidedRQ (1): set to 0 to use one-sided Rayleigh quotients instead
+%     of two-sided (only for solvers 'eig' and 'geneig') 
 %   - epscluster (1e-6): relative distance between eigenvalues in a cluster,
 %     set to 0 for no clustering (only for solvers 'schur' and 'genschur')
 %   - rrqr (0): set to 1 to use rank revealing QR instead of SVD in the
@@ -67,6 +67,7 @@ function [lambda,report] = joint_delta_eig(Delta,opts)
 % BP 06.11.2022 : extracted from multipareig 
 % BP 04.11.2023 : support for sparse matrices
 % BP 19.12.2023 : new solvers with Rayleigh quotients
+% BP 28.08.2024 : updated solvers with Rayleigh quotients
 
 % Validate number of input parameters
 narginchk(1, 2);
@@ -77,13 +78,16 @@ else
     class_t = superiorfloat(Delta{:});
 end
 
+% backward compatibility 
+if isfield(opts,'twosideRQ') && ~isfield(opts,'twosidedRQ'), opts.twosidedRQ = opts.twosideRQ;             end
+
 if isfield(opts,'singular'),   singular   = opts.singular;   else, singular   = 0;                         end
 if isfield(opts,'epscluster'), epscluster = opts.epscluster; else, epscluster = numeric_t('1e-6',class_t); end
 if isfield(opts,'rng_seed'),   rng_seed   = opts.rng_seed;   else, rng_seed   = 0;                         end
 if isfield(opts,'rand_orth'),  rand_orth  = opts.rand_orth;  else, rand_orth  = 1;                         end
 if isfield(opts,'solver'),     solver     = opts.solver;     else, solver = 'eig';                         end
 if isfield(opts,'maxgensize'), maxgensize = opts.maxgensize; else, maxgensize = 0;                         end
-if isfield(opts,'twosidedRQ'), twosidedRQ = opts.twosidedRQ; else, twosidedRQ = 0;                         end
+if isfield(opts,'twosidedRQ'), twosidedRQ = opts.twosidedRQ; else, twosidedRQ = 1;                         end
 if isfield(opts,'epsshape'),   epsshape   = opts.epsshape;   else, epsshape = 1e-6;                        end
 
 % Default outputs
@@ -164,6 +168,11 @@ if strcmp(solver,'eig')
     d0 = zeros(N,1,class_t);
     for i = 1:N
         d0(i) = leftX(:,i)'*X(:,i);
+        if twosidedRQ && abs(d0(i))<1e-12
+            % if left and right eigenvector are (almost) orthogoal, we switch to one-sided Rayleigh quotient for this eigenvalue
+            d0(i) = 1;
+            leftX(:,i) = X(:,i);
+        end
     end
     if startJ == 2
         lambda(:,1) = diag(D);
@@ -192,6 +201,11 @@ elseif strcmp(solver,'geneig')
     Gammar = Delta{1}*X;
     for i = 1:N
         d0(i) = leftX(:,i)'*Gammar(:,i);
+        if twosidedRQ && abs(d0(i))<1e-12
+            % if left and right eigenvector are (almost) orthogoal, we switch to one-sided Rayleigh quotient for this eigenvalue
+            d0(i) = X(:,i)'*Gammar(:,i);
+            leftX(:,i) = X(:,i);
+        end
     end
     for r = startJ:k-1
         Gammar = Delta{r+1}*X;

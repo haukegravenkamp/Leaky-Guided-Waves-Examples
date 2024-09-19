@@ -49,14 +49,14 @@ opts.singular = 1;
 solution = [lambda mu];
 
 % number of solutions
-solutions_found = length(solution)
+solutions_found = size(solution,1)
 
 % we write first 10 solutions
-first10 = solution(1:min([10 length(solution)]),:)
+first10 = solution(1:min([10 solutions_found]),:)
 
 % check that s1 and s2 are really eigenvalues of A-lambda*B-mu*C 
 % (for first 10 solutions)
-for k = 1:min([10 length(solution)])
+for k = 1:min([10 solutions_found])
     minsing1 = min(svd((A-lambda(k)*B - mu(k)*C - s1*I)));
     minsing2 = min(svd((A-lambda(k)*B - mu(k)*C - s2*I)));
     fprintf('Minimal singular values for A - si*I - lambda*B - mu C: (%7.1e, %7.1e), \n',minsing1,minsing2)

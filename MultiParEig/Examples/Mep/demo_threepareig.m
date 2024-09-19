@@ -62,7 +62,7 @@ D3 = [-1 2; 2 -1];
 eigenvalues = [lambda mu eta]
 
 % check that eigenvalues and eigenvectors are correct
-for k = 1:length(eigenvalues)
+for k = 1:size(eigenvalues,1)
     minsing1 = min(svd((A1-lambda(k)*B1-mu(k)*C1-eta(k)*D1)));
     minsing2 = min(svd((A2-lambda(k)*B2-mu(k)*C2-eta(k)*D2)));
     minsing3 = min(svd((A3-lambda(k)*B3-mu(k)*C3-eta(k)*D3)));

@@ -20,6 +20,7 @@
 % FreeBSD License, see LICENSE.txt
 
 % Last revision 8.9.2015
+% Fixed wrong sign of A1 and A2 29.8.2024
 
 A1 = [1     0     0     0     6
       0    -1     0     0     0
@@ -60,4 +61,4 @@ C2 = [8     6     3     0     1
 opts = [];
 opts.singular = 1;
 
-[x,y] = twopareig(A1,B1,C1,A2,B2,C2,opts)
+[x,y] = twopareig(-A1,B1,C1,-A2,B2,C2,opts)

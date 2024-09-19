@@ -157,7 +157,7 @@ end
 
 opts.singular = 1;
 mu = joint_delta_eig(DW,opts);
-m = length(mu);
+m = size(mu,1);
 
 if nargout>1
     X = zeros(n,m);

@@ -26,7 +26,7 @@ if nargin<2 || isempty(fast)
 end
 
 if ~fast % slow computation via SVD
-    [U,S,V] = svd(A); %#ok<*ASGLU>
+    [U,S,V] = svd(full(A)); %#ok<*ASGLU>
     xr = V(:,size(A,2));
     xl = U(:,size(A,2));
     return

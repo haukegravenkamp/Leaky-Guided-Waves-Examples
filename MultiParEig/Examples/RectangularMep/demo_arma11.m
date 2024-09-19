@@ -16,8 +16,7 @@ y = y(:);
 
 opts = [];
 opts.showrank = 1;
-% opts.heuristic = 0;
-
+p
 [points,val,err,cand] = arma11(y,opts);
 
 N = length(y);

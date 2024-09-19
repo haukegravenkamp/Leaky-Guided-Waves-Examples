@@ -38,7 +38,7 @@ end
 
 tic; [lambda1,X1] = rect_quad_multipareig(A); t1 = toc;
 
-n1 = length(lambda1);
+n1 = size(lambda1,1);
 err1 = [];
 for j = 1:n1
     mu(1) = lambda1(j,1);
@@ -59,7 +59,7 @@ end
 
 tic; [lambda2,X2] = rect_quad_multipareig(A); t2 = toc;
 
-n2 = length(lambda2);
+n2 = size(lambda2,1);
 err2 = [];
 for j = 1:n2
     mu(1) = lambda2(j,1);
@@ -82,7 +82,7 @@ end
 
 tic; [lambda3,X3] = rect_quad_multipareig(A); t3 = toc;
 
-n3 = length(lambda3);
+n3 = size(lambda3,1);
 err3 = [];
 for j = 1:n3
     mu(1) = lambda3(j,1);

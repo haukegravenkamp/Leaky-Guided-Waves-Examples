@@ -6,7 +6,7 @@ A. Muhič, B. Plestenjak: On the quadratic two-parameter eigenvalue problem and 
 
 **A MATLAB toolbox for multiparameter and singular eigenvalue problems**
 
-Version 2.7
+Version 2.8
 
 Toolbox contains numerical methods for multiparameter and singular eigenvalue problems.
 
@@ -71,7 +71,8 @@ collocation.
    arbitrary number of parameters (the limit is the overall size of the 
    corresponding Delta matrices),
 * solve a singular generalized eigenvalue problem
-* solve a rectangular eigenvalue problem
+* solve a rectangular multiparameter eigenvalue problem
+* solve a rectangular quadratic two-, three- or four-parameter eigenvalue problem
 * compute few eigenvalues and eigenvectors of a two-parameter eigenvalue 
    problem using implicitly restarted Arnoldi or Krylov-Schur method,
 * compute few eigenvalues and eigenvectors of a two- or three-parameter
@@ -109,6 +110,7 @@ collocation.
 ### Rectangular multiparameter eigenvalue problems ###
 * *rect_multipareig*: solve a linear rectangular multiparameter eigenvalue problem
 * *rect_quad_twopareig*: Solve a rectangular quadratic two-parameter eigenvalue problem
+* *rect_quad_multipareig*: Solve a rectangular quadratic up to four-parameter eigenvalue problem
 * *arma11* returns stationary points for the ARMA(1,1) model
 * *arma21* returns stationary points for the ARMA(2,1) model
 * *lti2* returns stationary points for the LTI(2) model
@@ -153,15 +155,15 @@ M.E. Hochstenbach, C. Mehl, B. Plestenjak: Solving singular generalized eigenval
 by a rank-completing perturbation, SIAM J. Matrix Anal. Appl. 40 (2019) 1022-1046
 and 
 M.E. Hochstenbach, C. Mehl, B. Plestenjak: Solving singular generalized eigenvalue problems. 
-Part II: projection and augmentation, arXiv 2208.01359
+Part II: projection and augmentation, SIAM J. Matrix Anal. Appl. 44 (2023) 1589-1618
 * SingularMep : examples that use the staircase algorithm to solve singular multiparameter eigenvalue problems
 * Subspace3: numerical examples (three-parameter problems) from
 M. Hochstenbach, K. Meerbergen, E. Mengi, B. Plestenjak: Subspace methods 
 for 3-parameter eigenvalue problems, Numer. Linear Algebra Appl. 26 (2019) e2240
 * JD : examples that use the Jacobi-Davidson method
 * RectangularMep : examples for rectangular multiparameter problems from
-M.E.Hochstenbach, T.Kosir, B.Plestenjak: On the solution of 
-rectangular multiparameter eigenvalue problems, arXiv 2212.01867
+M.E.Hochstenbach, T.Kosir, B.Plestenjak: Numerical methods for rectangular multiparameter eigenvalue problems,
+with applications to finding optimal ARMA and LTI models, Numer. Linear Algebra Appl. 31 (2024) e2540
 
 ## References ##
 
@@ -190,10 +192,10 @@ A. Muhič, B. Plestenjak: A method for computing all values lambda such that A +
 
 * singgep:
 M.E. Hochstenbach, C. Mehl, B. Plestenjak: Solving singular generalized eigenvalue problems by a rank-completing perturbation, SIAM J. Matrix Anal. Appl. 40 (2019) 1022-1046   
-M.E. Hochstenbach, C. Mehl, B. Plestenjak: Solving singular generalized eigenvalue problems. Part II: projection and augmentation, arXiv 2208.01359
+M.E. Hochstenbach, C. Mehl, B. Plestenjak: Solving singular generalized eigenvalue problems. Part II: projection and augmentation, SIAM J. Matrix Anal. Appl. 44 (2023) 1589-1618
 
 * rect_multipareig, rect_quad_twopareig, arma11, arma21, lti2:
-M.E.Hochstenbach, T.Kosir, B.Plestenjak: On the solution of rectangular multiparameter eigenvalue problems, arXiv 2212.01867
+M.E.Hochstenbach, T.Kosir, B.Plestenjak: Numerical methods for rectangular multiparameter eigenvalue problems, with applications to finding optimal ARMA and LTI models, Numer. Linear Algebra Appl. 31 (2024) e2540
 
 MultiParEig toolbox
 

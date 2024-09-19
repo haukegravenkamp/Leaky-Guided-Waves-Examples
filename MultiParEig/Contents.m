@@ -1,5 +1,5 @@
 % Multiparameter Eigenproblems (MultiParEig) Toolbox 
-% Version 2.7             03-Aug-2022
+% Version 2.8             29-Aug-2024
 % 
 % Toolbox for multiparameter and singular generalized eigenvalue problems
 % 
@@ -92,6 +92,14 @@
 % eigenvalue problem A*x = lambda*B*x, where A,B are square matrices
 % 
 % lambda is an eigenvalue if rank(A-lambda*B) < normal_rank(A,B)
+%
+% ------------------------------------------------------------------------
+% Change log from version 2.7:
+%  - default computation of joint eigenvalues usign randomized method 
+%    with two-sided Rayleigh quotients and eigenvectors of a random linear 
+%    combination 
+%  - more efficient solvers for rectangular multiparameter eig. problems
+%  - support for rectangular quadratic 3- and 4-parameter eig. problems
 %
 % ------------------------------------------------------------------------
 % Change log from version 2.6:

@@ -90,7 +90,7 @@ end
 
 if isfield(opts,'inviter'),    inviter    = opts.inviter;    else, inviter    = 1;                         end
 if isfield(opts,'novectors'),  novectors  = opts.novectors;  else, novectors  = 0;                         end
-if isfield(opts,'refine'),     refine     = opts.refine;     else, refine     = 1;                         end
+if isfield(opts,'refine'),     refine     = opts.refine;     else, refine     = 0;                         end
 if isfield(opts,'refineeps'),  refineeps  = opts.refineeps;  else, refineeps  = eps(class_t);              end
 
 % Make sure all inputs are of the same numeric type.

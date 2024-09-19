@@ -27,12 +27,9 @@ for k = 1:4
 end
 
 % first approach - using compressed Delta matrices 
-opts = [];
-opts.use_qz = 0;
-opts.rand_orth = 0;
 tic; [lambda1,X1] = rect_multipareig(A); t1 = toc;
 
-n1 = length(lambda1);
+n1 = size(lambda1,1);
 err1 = [];
 for j = 1:n1
     M = A{1};
@@ -47,11 +44,9 @@ fprintf('First approach, found %d eigenvalues, time: %7.1e, max residual: %7.1e\
 % second approach - using random matrices and conversion to square MEP
 opts = [];
 opts.method = 'mep';
-opts.use_qz = 0;
-opts.rand_orth = 0;
 tic; [lambda2,X2] = rect_multipareig(A,opts); t2 = toc;
 
-n2 = length(lambda2);
+n2 = size(lambda2,1);
 err2 = [];
 for j = 1:n2
     M = A{1};

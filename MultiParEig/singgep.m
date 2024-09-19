@@ -129,6 +129,10 @@ else
     alfa = 1;  % no scaling so that we can compare condition numbers
     beta = 1;  % no scaling so that we can compare condition numbers
 end
+if (alfa == 0) || (beta == 0) % prevents NaN is one of matrices is zero
+    alfa = 1;
+    beta = 1;
+end
 A = A/alfa;
 B = B/beta;
  
