@@ -10,7 +10,7 @@ end
 % default plot properties, can be overwritten by user values
 plotPropDefault = {'LineStyle','none','Marker', '.', 'Color', [0.38,0.65,0.76],...
     'MarkerSize',16,'DisplayName','MultiParEig'};
-plotPropDefaultRef = {'LineStyle','-','Color','k','LineWidth',1.5};
+plotPropDefaultRef = {'LineStyle','-','Color','k','LineWidth',1.5,'DisplayName','reference'};
 
 % attenuation
 figA = figure('defaulttextinterpreter','latex','Color','w');
@@ -21,6 +21,8 @@ xlim([0 w(end)/2/pi])
 ylim([0 attThreshold])
 xlabel('$f$ [MHz]')
 ylabel('$\eta$ [dB/m]')
+ax = gca;
+legend([ax.Children(end),ax.Children(1)],'Location','best');
 box on
 
 % phase velocities
@@ -32,6 +34,8 @@ xlim([0 w(end)/2/pi])
 ylim([0 10])
 xlabel('$f$ [MHz]')
 ylabel('$c_p$ [km/s]')
+ax = gca;
+legend([ax.Children(end),ax.Children(1)],'Location','best');
 box on
 
 end

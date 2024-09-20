@@ -11,25 +11,24 @@ M  = fileContent.M;
 R  = fileContent.R;
 c  = fileContent.c;
 
-typeCoupling = 'F';                 % type of coupling (one solid)
-attThreshold = 2000;                % maximum attenuation to consier
-w = 2*pi*linspace(0.001, 4, 300).'; % frequency
+typeCoupling = 'F';                                                         % type of coupling (one fluid)
+attThreshold = 2000;                                                        % maximum attenuation to consider
+w = 2*pi*linspace(0.001, 4, 300).';                                         % frequency
 
 %% solver
-n = size(E0,1);
-NN = nan(length(w), 2^3*n);
-k = NN + 1i*NN;
-kyB = k;
-kyS = k;
+% allocate arrays of horizontal and vertical wavenumbers
+k = nan(length(w), 2^3*size(E0,1))*(1+1i);                                  % horizontal wavenumber
+kyB = k;                                                                    % vertical wavenumber, bottom, pressure wave
 for i = 1:length(w)
     kappa = w(i)./c;
-    [lambda, tmp_lambda] = eig_Leaky_all(E0,E1,-E2,M,R,typeCoupling,kappa,w(i),[]);
-    k(i,1:numel(lambda))  = lambda;
-    kyB(i,1:numel(lambda))  = tmp_lambda(:,2);
+    [~, allEV] = eig_Leaky_all(E0,E1,-E2,M,R,typeCoupling,kappa,w(i),[]);
+    nSol = size(allEV,1);
+    k(i,1:nSol)   = allEV(:,1);
+    kyB(i,1:nSol) = allEV(:,2);
 end
 kyT = -kyB;
 
-att = imag(k)*20/log(10)*1000;   % attenuation
+att = imag(k)*20/log(10)*1000;                                              % attenuation
 
 %% filter
 indRemove = (real(kyB)>1e-2) | (real(kyT)<-1e-2) | (att>attThreshold) | (att<-1e-2);
@@ -39,9 +38,3 @@ att(indRemove) = nan;
 %% plot
 load reference_BrassWater.mat
 [figC, figA] = plotResults(w,k,att,refCp,refAtt,attThreshold,{},{'LineStyle','none','Marker','.'});
-
-
-
-
-
-

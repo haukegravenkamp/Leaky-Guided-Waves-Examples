@@ -11,31 +11,33 @@ M  = fileContent.M;
 R  = fileContent.R;
 c  = fileContent.c;
 
-typeCoupling = 'SS';                 % type of coupling (one solid)
-attThreshold = 30000;                % maximum attenuation to consier
-w = 2*pi*linspace(1e-3, 10, 201).';  % frequency
+typeCoupling = 'SS';                                                        % type of coupling (solid-solid)
+attThreshold = 30000;                                                       % maximum attenuation to consider
+w = 2*pi*linspace(1e-3, 10, 201).';                                         % frequency
 
 %% solver
-n = size(E0,1);
-NN = nan(length(w), 2^3*n);
-k = NN + 1i*NN;
-kyBp = k;
-kyBs = k;
-kyTp = k;
+% allocate arrays of horizontal and vertical wavenumbers
+k = nan(length(w), 2^3*size(E0,1))*(1+1i);                                  % horizontal wavenumber
+kyBp = k;                                                                   % vertical wavenumber, bottom, pressure wave
+kyBs = k;                                                                   % vertical wavenumber, bottom, shear wave
+kyTp = k;                                                                   % vertical wavenumber, top, pressure wave
+kyTs = k;                                                                   % vertical wavenumber, top, shear wave
 for i = 1:length(w)
     kappa = w(i)./c;
-    [lambda, tmp_lambda] = eig_Leaky_all(E0,E1,-E2,M,R,typeCoupling,kappa,w(i),[]);
-    k(i,1:numel(lambda))  = lambda;
-    kyBp(i,1:numel(lambda))  = tmp_lambda(:,2);
-    kyBs(i,1:numel(lambda))  = tmp_lambda(:,3);
-    kyTp(i,1:numel(lambda))  = tmp_lambda(:,4);
-    kyTs(i,1:numel(lambda))  = tmp_lambda(:,5);
+    [~, allEV] = eig_Leaky_all(E0,E1,-E2,M,R,typeCoupling,kappa,w(i),[]);
+    nSol = size(allEV,1);
+    k(i,1:nSol)     = allEV(:,1);
+    kyBp(i,1:nSol)  = allEV(:,2);
+    kyBs(i,1:nSol)  = allEV(:,3);
+    kyTp(i,1:nSol)  = allEV(:,4);
+    kyTs(i,1:nSol)  = allEV(:,5);
 end
 
-att = imag(k)*20/log(10)*1000;   % attenuation
+att = imag(k)*20/log(10)*1000;                                              % attenuation
 
 %% filter
-indRemove = (real(kyBp)>-1e-2) | (real(kyBs)>-1e-2) | (real(kyTp)<1e-2)  | (real(kyTs)<1e-2) | (att>attThreshold) | (att<1e-2);
+indRemove = (real(kyBp)>-1e-2) | (real(kyBs)>-1e-2) | (real(kyTp)<1e-2)...
+    | (real(kyTs)<1e-2) | (att>attThreshold) | (att<1e-2);
 k(indRemove) = nan + 1i*nan;
 att(indRemove) = nan;
 
