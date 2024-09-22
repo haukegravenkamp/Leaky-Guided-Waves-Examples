@@ -29,7 +29,7 @@ SAMWISE lets you generate the (semi-analytical) finite element matrices for arbi
 - run any of the 'example*.m' files.
 
 You should obtain the dispersion curves as published in the paper - if not, please let us know!
-The simplest example example_brassWater.m should take few seconds to run; the most expensive example_titaniumTeflonBrass will take a few minutes.
+The simplest example 'example_brassWater.m' should take few seconds to run; the most expensive 'example_titaniumTeflonBrass.m' will take a few minutes.
 
 ## other related work
 
@@ -54,3 +54,12 @@ The simplest example example_brassWater.m should take few seconds to run; the mo
 > [9] Gavrić, L. “Finite Element Computation of Dispersion Properties of Thin-Walled Waveguides.” Journal of Sound and Vibration 173, no. 1 (1994): 113–24. <https://doi.org/10.1006/jsvi.1994.1221>.
 >
 > [10] Kausel, E. “Accurate Stresses in the Thin-Layer Method.” International Journal for Numerical Methods in Engineering 61 (2004): 360–79. <https://doi.org/10.1002/nme.1067>.
+
+## authors
+
+In addition to the paper [1] describing the theory behind this code, the implementation itself may be cited as
+
+> Gravenkamp, H., Plestenjak, B., Kiefer, D. A., & Jarlebring, E. (2024), Leaky Guided Waves Examples (v1.0.0), doi:10.5281/zenodo.13825263, <https://github.com/haukegravenkamp/Leaky-Guided-Waves-Examples>
+
+[![DOI](https://zenodo.org/badge/859846611.svg)](https://zenodo.org/doi/10.5281/zenodo.13825262)
+
