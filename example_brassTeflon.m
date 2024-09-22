@@ -17,6 +17,7 @@ w = 2*pi*linspace(1e-2, 7, 281).';                                          % fr
 
 %% solver
 % allocate arrays of horizontal and vertical wavenumbers
+% arrays are allocated as complex nan to avoid extra zeros in plots 
 k = nan(length(w), 2^3*size(E0,1))*(1+1i);                                  % horizontal wavenumber
 kyL = k;                                                                    % vertical wavenumber, bottom, pressure wave
 kyS = k;                                                                    % vertical wavenumber, bottom, pressure wave
@@ -32,6 +33,7 @@ end
 att = imag(k)*20/log(10)*1000;                                              % attenuation
 
 %% filter 
+% filter out incoming waves and negative attenuation
 indRemove = (real(kyL)<0) | (real(kyS)<0) | (att>attThreshold) | (att<0);
 k(indRemove) = nan + 1i*nan;
 att(indRemove) = nan;
